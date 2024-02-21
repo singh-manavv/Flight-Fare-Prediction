@@ -1,32 +1,54 @@
 import os
-import sys 
-import pandas as pd 
-import numpy as np
+import sys
+import pandas as pd
+from datetime import datetime, timedelta
 from dataclasses import dataclass
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn.pipeline import Pipeline
 from src.logger import logging
 from src.exception import CustomException
 
+def preprocess_data(df):
+    # Other preprocessing steps...
+    df['Date_of_Journey'] = pd.to_datetime(df['Date_of_Journey'], format="%d/%m/%Y")
+    df['Month'] = df['Date_of_Journey'].dt.month
+    df['Day'] = df['Date_of_Journey'].dt.day
+    
+    # Assuming 'Duration' column exists or has been calculated
+    # Convert duration to minutes if in a different format
+    if 'Duration' in df.columns and df['Duration'].dtype == object:
+        def convert_duration(duration):
+            parts = duration.split()
+            minutes = 0
+            for part in parts:
+                if 'h' in part:
+                    minutes += int(part.replace('h', '')) * 60
+                elif 'm' in part:
+                    minutes += int(part.replace('m', ''))
+            return minutes
+        df['Duration'] = df['Duration'].apply(convert_duration)
+    
+    # Map total stops
+    stops_mapping = {'non-stop': 0, '1 stop': 1, '2 stops': 2, '3 stops': 3, '4 stops': 4}
+    df['Total_Stops'] = df['Total_Stops'].map(stops_mapping).fillna(0)
+    
+    # Drop unnecessary columns
+    columns_to_drop = ['Route', 'Date_of_Journey', 'Additional_Info', 'Dep_Time', 'Arrival_Time']
+    df.drop(columns=columns_to_drop, inplace=True)
+    
+    # One-hot encode categorical columns
+    categorical_columns = ['Airline', 'Source', 'Destination']
+    df = pd.get_dummies(df, columns=categorical_columns, drop_first=True)
+    
+    return df
 
 @dataclass
-class DataTransformationConfig:
-    preprocessor_obj_path = os.path.join('artifacts', 'preprocessor.pkl')
-
 class DataTransformation:
-    def __init__(self):
-        self.transformation_config = DataTransformationConfig()
-    
-    def get_transformer_object(self):
-        logging.info('Starting Data transformation')
+    def init_data_transformation(self, raw_data):
         try:
-            df = pd.read_csv(os.path.join('artifacts','train.csv'))
-            print(df.shape)
+            df = pd.read_excel(raw_data)
+            logging.info('Reading the training and test data')
+            df = preprocess_data(df)  # Adjust based on your data
+            print(df.columns)
+            logging.info("Saved preprocessing object.")
+            return df
         except Exception as e:
-            raise CustomException(e,sys)
-
-if __name__ == '__main__':
-    obj = DataTransformation()
-    obj.get_transformer_object()
+            raise CustomException(e, sys)

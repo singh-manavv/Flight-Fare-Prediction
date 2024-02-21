@@ -4,4 +4,6 @@ seaborn
 scikit-learn
 Flask
 openpyxl
+xgboost
+catboost
 -e .
