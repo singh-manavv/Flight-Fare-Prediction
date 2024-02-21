@@ -1,8 +1,7 @@
-/* Base styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1a1a1a; /* Darker background for the overall page */
-    color: #fff; /* Light text color for contrast */
+    background-color: #1a1a1a;
+    color: #fff;
     line-height: 1.6;
 }
 
@@ -10,17 +9,17 @@ body {
     max-width: 800px;
     margin: 30px auto;
     padding: 20px;
-    background-color: #2a2a2a; /* Slightly lighter dark background for the container */
+    background-color: #2a2a2a;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
+    text-align: center;
 }
 
 h1 {
-    text-align: center;
-    color: #fff; /* Light color for the title */
+    font-size: 2.5rem;
+    margin-bottom: 30px;
 }
 
-/* Form styling */
 .prediction-form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -28,79 +27,83 @@ h1 {
     margin-top: 20px;
 }
 
-.prediction-form .form-group {
+.form-group {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
-.prediction-form .form-group label {
+.form-group label {
     margin-bottom: 5px;
     font-weight: bold;
-    color: #ccc; /* Lighter text for labels */
+    color: #ccc;
 }
 
-.prediction-form .form-group input,
-.prediction-form .form-group select {
+.form-group input,
+.form-group select {
     padding: 10px;
-    background-color: #333; /* Darker background for inputs */
-    border: 1px solid #444; /* Slightly lighter border for inputs */
+    background-color: #333;
+    border: 1px solid #444;
     border-radius: 4px;
-    color: #ddd; /* Light text color for input */
+    color: #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.prediction-form .form-group input:focus,
-.prediction-form .form-group select:focus {
-    border-color: #007bff; /* Highlight color for focus */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
-/* Button styling */
 .btn-submit {
-    padding: 8px 15px; /* Reduced padding for a smaller height and width */
-    background-color: #007bff; /* Primary color for the button */
+    padding: 8px 15px;
+    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100px; /* Reduced width */
+    width: 100px;
     height: 40px;
-    font-size: 0.85em; /* Optional: Adjust font size if needed */
+    font-size: 0.85em;
 }
 
-/* Prediction result styling */
-.prediction-result {
-    background-color: #333; /* Darker background for the result */
-    /* padding: px; */
+/* .prediction-result {
+    background-color: #333;
     border-radius: 4px;
-    /* Positioning */
-    display: inline-block; /* Allows the div to be next to the button */
-    margin-left: 20px; /* Space between the button and the text */
-    vertical-align: middle; /* Aligns text with the button vertically */
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: middle;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+} */
+
+.prediction-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: center;
 }
 
-/* Adjust form layout to accommodate prediction result next to the button */
-.prediction-form .form-group:last-child {
-    grid-column: span 2; /* Makes the last form-group span two columns */
-    text-align: right; /* Aligns the button to the right */
+.prediction-result {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
 }
 
-/* Footer styling */
-footer {
-    text-align: center;
-    padding: 10px 0;
-    color: #ccc; /* Lighter text for footer */
-    font-size: 0.8em;
-    background-color: #2a2a2a; /* Slightly lighter dark background for the footer */
-    border-top: 1px solid #444; /* Border top for definition */
+.prediction-text {
+    margin-left: 20px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
-    .prediction-form {
-        grid-template-columns: 1fr;
+    .prediction-result {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .prediction-result {
-        text-align: center; /* Center align text for mobile */
+    .prediction-text {
+        margin-top: 10px;
+        margin-left: 0;
     }
 }
