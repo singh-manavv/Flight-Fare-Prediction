@@ -1,13 +1,12 @@
 from flask import Flask, request, render_template, jsonify
-import pandas as pd
 import pickle
-from src.components.data_transformation import preprocess_data
-from src.pipeline.predict_pipeline import preprocess_form_data
+from src.pipeline.predict_pipeline import FlightDataPreprocessor
 
 app = Flask(__name__)
+preprocessor = FlightDataPreprocessor()
 
-def load_model():
-    with open('artifacts/model.pkl', 'rb') as file:
+def load_model(model_path='artifacts/model.pkl'):
+    with open(model_path, 'rb') as file:
         model = pickle.load(file)
     return model
 
@@ -19,17 +18,14 @@ def index():
 def predict():
     try:
         form_data = request.form.to_dict()
-        print(form_data)
-        features = preprocess_form_data(form_data)
-        print(features.columns)
+        features = preprocessor.preprocess_form_data(form_data)
         model = load_model()
         prediction = model.predict(features)
-        # prediction = model.predict(processed_data)
-
         prediction_text = f"Predicted Flight Price: {round(prediction[0])}"
         return render_template("index.html", prediction_text=prediction_text)
     except Exception as e:
-        return jsonify({'error': str(e)})
+        error_message = f"An error occurred: {str(e)}"
+        return render_template("index.html", prediction_text=error_message)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
