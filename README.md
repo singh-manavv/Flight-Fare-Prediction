@@ -74,7 +74,7 @@ Ensure you have Python (version 3.11 or later) installed on your system. You wil
 The Flight Fare Prediction project leverages machine learning to provide users with flight fare estimates, making it easier to plan and budget for travel. By continuously updating the model with new data, its predictions can become more accurate over time, further aiding in the decision-making process for travelers.
 
 ## Preview
-![Previews/Flight-Fare-Demo.gif](https://github.com/singh-manavv/Flight-Fare-Prediction/blob/main/Previews/Flight-Fare-Demo.gif)
+![Previews/Flight-Fare-Demo.gif](https://imgur.com/a/9gBUjj3)
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
