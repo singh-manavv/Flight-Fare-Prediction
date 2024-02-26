@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Price Prediction</title>
     <link rel="stylesheet" href="static/css/style.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sourceSelect = document.getElementById('Source');
+            const destinationSelect = document.getElementById('Destination');
+
+            function updateDestinationOptions() {
+                const source = sourceSelect.value;
+                const destinationOptions = destinationSelect.options;
+
+                for (let i = 0; i < destinationOptions.length; i++) {
+                    const option = destinationOptions[i];
+                    option.style.display = "block"; // Show all options by default
+
+                    // Hide both "Delhi" and "New Delhi" options if either is selected as the source
+                    if ((source === "Delhi" && (option.value === "New Delhi" || option.value === "Delhi")) || 
+                        (source === "New Delhi" && (option.value === "Delhi" || option.value === "New Delhi"))) {
+                        option.style.display = "none"; // Hide option if it matches the condition
+                    }
+                }
+            }
+
+            sourceSelect.addEventListener('change', updateDestinationOptions);
+            updateDestinationOptions(); // Call on initial load in case the default selection matches the condition
+        });
+    </script>
 </head>
 <body>
 
@@ -23,6 +48,7 @@
             <label for="Source">Source</label>
             <select name="Source" id="Source" required>
                 <option value="Delhi">Delhi</option>
+                <option value="New Delhi">New Delhi</option>
                 <option value="Kolkata">Kolkata</option>
                 <option value="Mumbai">Mumbai</option>
                 <option value="Chennai">Chennai</option>
