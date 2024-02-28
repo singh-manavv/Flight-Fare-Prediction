@@ -6,4 +6,5 @@ Flask
 openpyxl
 xgboost
 catboost
+mlflow
 -e .
