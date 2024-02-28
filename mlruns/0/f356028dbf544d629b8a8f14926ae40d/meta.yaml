@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Manav/Projects/Flight-Fare-projec/Flight-Fare-Prediction/mlruns/0/f356028dbf544d629b8a8f14926ae40d/artifacts
+end_time: 1709116467755
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f356028dbf544d629b8a8f14926ae40d
+run_name: judicious-shad-223
+run_uuid: f356028dbf544d629b8a8f14926ae40d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1709116463978
+status: 3
+tags: []
+user_id: singh
